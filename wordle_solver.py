@@ -21,6 +21,13 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 from english_words import get_english_words_set
 import numpy as np
 import cProfile
+import argparse
+parser = argparse.ArgumentParser(description='Description of your script')
+parser.add_argument('--seed', help='Input seed')
+parser.add_argument('--size', help='Input size')
+args = parser.parse_args()
+
+
 
 # Disable InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -31,7 +38,7 @@ web2lowerset = list(web2lowerset)
 common_letter_rank = "etaonrishdlfcmugypwbvkjxzq"
 
 
-CORRECT, PRESENT, ABSENT = 2, 1, 0
+CORRECT, PRESENT, ABSENT = "correct", "present", "absent"
 
 def check_answer(guess_word: str, seed: int, text_size: int) -> list:
   # Check answer from API and return next pattern
@@ -43,7 +50,7 @@ def check_answer(guess_word: str, seed: int, text_size: int) -> list:
 
 def get_the_remain_words_list(guess_word: str, pattern: list, allowed_words_list: list) -> list:
   remain_list = []
-
+  allowed_words_list = set(allowed_words_list)
   for word in allowed_words_list:
     check = True
     for i, possible in enumerate(pattern): # "absent": 0, "present": 1, "correct": 2,
@@ -101,7 +108,7 @@ def recursive_guess(inital_guess: str, allowed_words_list: list, all_pattern: li
     return recursive_guess(best_guess, remain_words, all_pattern, seed)
 
 def wordle_solver(seed: int, text_size: int) -> str:
-  all_pattern = np.array(list(product(*[[ABSENT ,PRESENT ,CORRECT]]*text_size)),dtype=int) # "absent": 0, "present": 1, "correct": 2,
+  all_pattern = list(product(*[[ABSENT ,PRESENT ,CORRECT]]*text_size)) # "absent": 0, "present": 1, "correct": 2,
   # main function solve wordle
 
   allowed_text = []
@@ -117,6 +124,6 @@ def wordle_solver(seed: int, text_size: int) -> str:
 
 if __name__ == "__main__":
   profiler = cProfile.Profile()
-  profiler.run("wordle_solver(1234,5)")
+  profiler.run(f"wordle_solver({args.seed},{args.size})")
   profiler.print_stats()
 
