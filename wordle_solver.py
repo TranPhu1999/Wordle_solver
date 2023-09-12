@@ -242,37 +242,37 @@ if __name__ == "__main__":
       if not os.path.exists(pattern_file):
         generate_full_pattern_matrix(pattern_file ,list_word)
 
-  # while True:
-  #   seed = input("Input seed: ")
-  #   while True:
-  #     try:
-  #       seed = int(seed)
-  #       break
-  #     except:
-  #       logging.info("\nseed has to be int! ")
-  #       seed = input("Input seed: ")
+  while True:
+    seed = input("Input seed: ")
+    while True:
+      try:
+        seed = int(seed)
+        break
+      except:
+        logging.info("\nseed has to be int! ")
+        seed = input("Input seed: ")
 
-  #   text_size = input("Input text size: ")
-  #   while True:
-  #     try:
-  #       text_size = int(text_size)
-  #       break
-  #     except:
-  #       if not isinstance(text_size,int):
-  #         logging.info("\ntext size has to be int! ")
-  #         text_size = input("Input text size: ")
+    text_size = input("Input text size: ")
+    while True:
+      try:
+        text_size = int(text_size)
+        break
+      except:
+        if not isinstance(text_size,int):
+          logging.info("\ntext size has to be int! ")
+          text_size = input("Input text size: ")
 
-    # word_ans = wordle_solver(seed,text_size)
-    # logging.info(f"Word: {word_ans}")
+    word_ans = wordle_solver(seed,text_size)
+    logging.info(f"Word: {word_ans}")
 
-    # again = input("Continue? Yes if 1, No if not 1: ")
-    # if again != "1":
-    #   break
+    again = input("Continue? Yes if 1, No if not 1: ")
+    if again != "1":
+      break
     
   
-  profiler = cProfile.Profile()
-  profiler.enable()
-  wordle_solver(1234,5)
-  profiler.disable()
-  stats = pstats.Stats(profiler).sort_stats('tottime')
-  stats.print_stats(10)
+  # profiler = cProfile.Profile()
+  # profiler.enable()
+  # wordle_solver(1234,5)
+  # profiler.disable()
+  # stats = pstats.Stats(profiler).sort_stats('tottime')
+  # stats.print_stats(10)
