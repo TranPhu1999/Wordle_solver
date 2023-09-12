@@ -2,9 +2,10 @@
 
 # How to run
 
-pip install ./requirements.txt 
+pip install -r ./requirements.txt 
 
-python wordle_solver.py --seed 1234 --size 5 
+# Modify path to save file in run.sh
+bash run.sh
 
 # More improvement
 1. create a pattern matrix to reduce the time need to recalculate them, which is take very long time
